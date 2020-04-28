@@ -86,6 +86,9 @@ namespace IdentityServer4.Contrib.Certificates.Stores
                 store.Close();
             }
 
+            if (certificate == null)
+                throw new Exception($"Unable to find certificate for host {_hostname} in WebHosting LocalMachine X509Store.");
+
             return MakeSigningCredentials(certificate);
         }
 

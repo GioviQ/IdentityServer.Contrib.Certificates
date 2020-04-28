@@ -17,12 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <exception cref="InvalidOperationException">X509 certificate does not have a private key.</exception>
         public static IIdentityServerBuilder AddWebHostingCertificate(this IIdentityServerBuilder builder)
         {
-            builder.Services.AddSingleton((s) =>
-            {
-                return new Func<string, ISigningCredentialStore>(
-                    (hostname) => new InMemoryWebHostingCertificatesStore(s.GetRequiredService<IdentityServerOptions>(), s.GetRequiredService<ILogger<InMemoryWebHostingCertificatesStore>>())
-                );
-            });
+            builder.Services.AddSingleton<ISigningCredentialStore, InMemoryWebHostingCertificatesStore>();
 
             builder.Services.AddSingleton(s => s.GetRequiredService<ISigningCredentialStore>() as IValidationKeysStore);
 

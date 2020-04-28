@@ -2,12 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Giovanni Quarella</Authors>
     <PackageTags>OAuth2;OAuth 2.0;OpenID Connect;Security;Identity;IdentityServer</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIcon>icon.png</PackageIcon>
+    <Description>Add WebHosting Certificate to Identity Server 4</Description>
+    <RepositoryUrl>https://github.com/GioviQ/IdentityServer4.Contrib.Certificates</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/GioviQ/IdentityServer4.Contrib.Certificates</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
