@@ -27,6 +27,8 @@ namespace IdentityServer4.Contrib.Certificates.Stores
             Logger = logger;
 
             inMemorySecurityKeyInfoStore = new Dictionary<X509Certificate2, SecurityKeyInfo>();
+
+            GetSigningCredentials();
         }
         public Task<SigningCredentials> GetSigningCredentialsAsync()
         {
@@ -57,29 +59,36 @@ namespace IdentityServer4.Contrib.Certificates.Stores
                 {
                     var validCert = certs[0];
 
+                    var toAdd = false;
+
                     if (certificate == null)
                     {
                         certificate = validCert;
+
+                        toAdd = true;
+
                         Logger.LogInformation(
                                 $"The certificate {validCert.Subject} has been found with expiration date {validCert.GetExpirationDateString()}.");
                     }
                     else if (certificate.Thumbprint != validCert.Thumbprint)
                     {
-                        if (certificate.Verify())
-                        {
-                            var credential = MakeSigningCredentials(certificate);
-
-                            inMemorySecurityKeyInfoStore.Add(certificate, new SecurityKeyInfo
-                            {
-                                Key = credential.Key,
-                                SigningAlgorithm = credential.Algorithm
-                            });
-
-                            Logger.LogInformation(
-                                $"The new certificate {validCert.Subject} has been found with expiration date {validCert.GetExpirationDateString()}. The previous is added to ValidationKeys.");
-                        }
+                        toAdd = true;
+                        Logger.LogInformation(
+                            $"The new certificate {validCert.Subject} has been found with expiration date {validCert.GetExpirationDateString()}.");
 
                         certificate = validCert;
+                    }
+
+
+                    if (toAdd)
+                    {
+                        var credential = MakeSigningCredentials(certificate);
+
+                        inMemorySecurityKeyInfoStore.Add(certificate, new SecurityKeyInfo
+                        {
+                            Key = credential.Key,
+                            SigningAlgorithm = credential.Algorithm
+                        });
                     }
                 }
 
