@@ -13,3 +13,9 @@ In WebHosting LocalMachine X509Store a certificate with Subject equal to hostnam
 
 
 If you use [win-acme](https://github.com/win-acme/win-acme) to get a certificate for your web application, this Identity Server extension is the perfect companion to keep Identity Server Signin Credential up to date.
+
+IIS_IUSRS group has to access Windows Certificate Store where win-acme will store the certificate. So use the following command:
+
+```
+wacs.exe --acl-fullcontrol "iis_iusrs,administrators"
+```
