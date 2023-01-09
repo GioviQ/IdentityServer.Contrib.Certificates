@@ -97,6 +97,15 @@ namespace IdentityServer4.Contrib.Certificates.Stores
 
             if (certificate == null)
                 throw new Exception($"Unable to find certificate for host {_hostname} in WebHosting LocalMachine X509Store.");
+            else
+                try
+                {
+                    certificate.GetRSAPrivateKey();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Unable to get RSA Private key of certificate for host {_hostname} in WebHosting LocalMachine X509Store ({ex.GetBaseException().Message}).");
+                }
 
             return MakeSigningCredentials(certificate);
         }

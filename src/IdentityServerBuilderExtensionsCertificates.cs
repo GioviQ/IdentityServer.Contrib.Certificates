@@ -1,7 +1,5 @@
-﻿using IdentityServer4.Configuration;
-using IdentityServer4.Contrib.Certificates.Stores;
+﻿using IdentityServer4.Contrib.Certificates.Stores;
 using IdentityServer4.Stores;
-using Microsoft.Extensions.Logging;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
