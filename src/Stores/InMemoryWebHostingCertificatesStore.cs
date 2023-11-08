@@ -40,8 +40,15 @@ namespace IdentityServer4.Contrib.Certificates.Stores
             foreach (var key in inMemorySecurityKeyInfoStore.Keys.Where(i => !i.Verify()))
             {
                 inMemorySecurityKeyInfoStore.Remove(key);
-                Logger.LogInformation(
+                Logger.LogWarning(
                     $"The certificate {key.Subject} has been removed from ValidationKeys (expiration date {key.GetExpirationDateString()}).");
+            }
+
+            if (!inMemorySecurityKeyInfoStore.Keys.Any())
+            {
+                Logger.LogWarning($"All certificates have been removed from ValidationKeys. Start reading new certificate");
+
+                GetSigningCredentials();
             }
 
             return Task.FromResult(inMemorySecurityKeyInfoStore.Values.AsEnumerable());
