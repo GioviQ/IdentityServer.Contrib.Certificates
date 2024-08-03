@@ -1,5 +1,5 @@
-﻿using IdentityServer4.Contrib.Certificates.Stores;
-using IdentityServer4.Stores;
+﻿using IdentityServer.Contrib.Certificates.Stores;
+using Duende.IdentityServer.Stores;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection

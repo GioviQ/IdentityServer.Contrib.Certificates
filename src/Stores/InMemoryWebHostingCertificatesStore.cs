@@ -1,6 +1,7 @@
-﻿using IdentityServer4.Configuration;
-using IdentityServer4.Models;
-using IdentityServer4.Stores;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Configuration;
+using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Stores;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -10,7 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using JsonWebKey = Microsoft.IdentityModel.Tokens.JsonWebKey;
 
-namespace IdentityServer4.Contrib.Certificates.Stores
+namespace IdentityServer.Contrib.Certificates.Stores
 {
     public class InMemoryWebHostingCertificatesStore : ISigningCredentialStore, IValidationKeysStore
     {

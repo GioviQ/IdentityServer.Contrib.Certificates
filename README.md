@@ -1,4 +1,4 @@
-# IdentityServer4.Contrib.Certificates
+# IdentityServer.Contrib.Certificates
 Add WebHosting Certificate to IdentityServer
 
 In your Startup.cs after var identityServerBuilder = services.AddIdentityServer(... etc.
