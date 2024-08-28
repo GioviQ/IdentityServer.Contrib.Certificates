@@ -37,9 +37,12 @@ namespace IdentityServer4.Contrib.Certificates.Stores
 
         public Task<IEnumerable<SecurityKeyInfo>> GetValidationKeysAsync()
         {
-            foreach (var key in inMemorySecurityKeyInfoStore.Keys.Where(i => !i.Verify()))
+            DateTime now = DateTime.Now;
+
+            foreach (var key in inMemorySecurityKeyInfoStore.Keys.Where(i => i.NotAfter < now).ToList())
             {
                 inMemorySecurityKeyInfoStore.Remove(key);
+
                 Logger.LogWarning(
                     $"The certificate {key.Subject} has been removed from ValidationKeys (expiration date {key.GetExpirationDateString()}).");
             }
@@ -56,7 +59,7 @@ namespace IdentityServer4.Contrib.Certificates.Stores
 
         private SigningCredentials GetSigningCredentials()
         {
-            using (X509Store store = new X509Store("WebHosting", StoreLocation.LocalMachine))
+            using (X509Store store = new("WebHosting", StoreLocation.LocalMachine))
             {
                 store.Open(OpenFlags.ReadOnly);
 
